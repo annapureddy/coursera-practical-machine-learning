@@ -7,10 +7,10 @@ output: html_document
 
 ## Executive Summary
 This paper analyzes data obtained from accelerometers on the belt, forearm, 
-arm, and dumbbell of 6 participants. The participants performed dumbbell lifts correctly as well as in 4 incorrect ways representing common mistakes; the data is available <a href="http://groupware.les.inf.puc-rio.br/har">here</a>. We built a model to determine if the exercise was performed correctly, given the accelerometer data. Our analysis shows that a random forest model achieves an out of sample error rate of 0.3%; on the given test set, the accuracy is 100%. 
+arm, and dumbbell of 6 participants. The participants performed dumbbell lifts correctly as well as in 4 incorrect ways representing common mistakes; the data is available <a href="http://groupware.les.inf.puc-rio.br/har">here</a>. We built a model to determine if the exercise was performed correctly, given the accelerometer data. Our analysis shows that a random forest model achieves an out of sample error rate of 0.28%; on the given test set, the accuracy is 100%. 
 
 ## Building a model
-We note at the outset that this is a classification problem (as opposed to being a regression problem). Thus, we believe models like classification trees, logistic regression etc. would be the appropriate choice. We will examine these approaches in more detail below. 
+We note at the outset that this is a classification problem (as opposed to being a regression problem). Thus, we believe models like classification trees would be the appropriate choice. We will examine these approaches in more detail below. 
 
 First, we will load the data. Note that there are 3 kinds of NA values in this data set: NA, '', '#DIV/0!'. 
 ```{r}
@@ -40,7 +40,7 @@ m <- randomForest(classe ~ ., data = tr1)
 answers <- as.character(predict(m, te))
 m
 ```
-We note that the Out-of-bag (OOB) estimate of error rate is 0.3%. Note that random forest involves a bagging (bootstrap aggregation) procedure. So, typically about 0.368 of the samples are out-of-bag for each tree in the forest (Bootstrap results in about 0.632 of the original samples being selected). Thus, the OOB error is essentially equivalent to error rates obtained using cross-validation. 
+We note that the Out-of-bag (OOB) estimate of error rate is 0.28%. Note that random forest involves a bagging (bootstrap aggregation) procedure. So, typically about 0.368 of the samples are out-of-bag for each tree in the forest (Bootstrap results in about 0.632 of the original samples being selected). Thus, the OOB error is essentially equivalent to error rates obtained using cross-validation. 
 
-## Conclusions
-We have built a classifier for workout quality based on the random forest model, using `r dim(tr1)[2]` covariates. We estimate that the out of sample error rate is 0.3%. We also note that the accuracy of this classifier on the test set is 100%. 
+## Conclusion
+We have built a classifier for workout quality based on the random forest model, using `r dim(tr1)[2]` covariates. We estimate that the out of sample error rate is 0.28%. We also note that the accuracy of this classifier on the test set is 100%. 
